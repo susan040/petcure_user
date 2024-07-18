@@ -7,28 +7,28 @@ class SplashScreen extends StatelessWidget {
   static const routeName = '/splash-screen';
   SplashScreen({super.key});
   final c = Get.put(SplashScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: SizedBox(
+      body: Center( // Wrap the Column with Center
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
               width: Get.width / 1.3,
               child: Image.asset(ImagePath.logo),
             ),
-          ),
-          const Center(
-            child: CircularProgressIndicator(
+            const SizedBox(height: 20), // Added SizedBox for spacing
+            const CircularProgressIndicator(
               color: Color(0xFFF6E5FF),
             ),
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-        ],
+            const SizedBox(
+              height: 35,
+            ),
+          ],
+        ),
       ),
     );
   }

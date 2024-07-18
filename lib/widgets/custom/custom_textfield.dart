@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final IconData? preIconPath;
   final String? suffixIconPath;
+  final double? preIconSize;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextInputAction textInputAction;
@@ -47,7 +48,7 @@ class CustomTextField extends StatelessWidget {
     this.maxCharacters,
     this.focusNode,
     this.labelText,
-    this.prefixIconColor,
+    this.prefixIconColor, this.preIconSize,
   });
 
   @override
@@ -72,6 +73,7 @@ class CustomTextField extends StatelessWidget {
                 labelText!,
                 style: CustomTextStyles.f16W400(
                   color: AppColors.primaryColor,
+                  
                 ),
               )
             : null,
@@ -81,7 +83,7 @@ class CustomTextField extends StatelessWidget {
             ? Icon(
                 preIconPath,
                 color: prefixIconColor ?? AppColors.secondaryTextColor,
-                size: 22,
+                size: preIconSize,
               )
             : null,
         suffixIcon: suffixIconPath != null

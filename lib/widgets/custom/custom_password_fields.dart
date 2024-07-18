@@ -10,6 +10,9 @@ class CustomPasswordField extends StatelessWidget {
   final String hint;
   final FocusNode? focusNode;
   final bool eye;
+  final IconData? preIconPath;
+  final Color? prefixIconColor;
+  final double? preIconSize;
   final VoidCallback onEyeClick;
   final TextEditingController controller;
   final TextInputAction textInputAction;
@@ -18,7 +21,7 @@ class CustomPasswordField extends StatelessWidget {
   final String? labelText;
 
   const CustomPasswordField({
-    Key? key,
+    super.key,
     required this.hint,
     required this.eye,
     required this.onEyeClick,
@@ -28,7 +31,10 @@ class CustomPasswordField extends StatelessWidget {
     this.onSubmitted,
     this.focusNode,
     this.labelText,
-  }) : super(key: key);
+    this.preIconPath,
+    this.prefixIconColor,
+    this.preIconSize,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +57,30 @@ class CustomPasswordField extends StatelessWidget {
                   ),
                 )
               : null,
-          enabledBorder: const OutlineInputBorder(
+          prefixIcon: preIconPath != null
+              ? Icon(
+                  preIconPath,
+                  color: prefixIconColor ?? AppColors.secondaryTextColor,
+                  size: preIconSize,
+                )
+              : null,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
             borderSide:
-                BorderSide(width: 1, color: AppColors.secondaryTextColor),
+                const BorderSide(width: 1, color: AppColors.secondaryTextColor),
           ),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(width: 1, color: AppColors.errorColor),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(width: 1, color: AppColors.errorColor),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(width: 1, color: AppColors.primaryColor),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide:
+                const BorderSide(width: 1, color: AppColors.primaryColor),
           ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(width: 1, color: AppColors.errorColor),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(width: 1, color: AppColors.errorColor),
           ),
           suffixIcon: IconButton(
             onPressed: onEyeClick,

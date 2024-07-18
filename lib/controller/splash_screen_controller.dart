@@ -6,7 +6,7 @@ class SplashScreenController extends GetxController {
   @override
   void onInit() {
     Timer(const Duration(seconds: 3), () async {
-      Get.offAll(LoginScreen());
+      Get.offAll(() => LoginScreen());
     });
     super.onInit();
   }
