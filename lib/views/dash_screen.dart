@@ -17,9 +17,9 @@ class DashScreen extends StatelessWidget {
         bottomNavigationBar: Obx(() => Container(
               decoration: const BoxDecoration(boxShadow: [
                 BoxShadow(
-                  color: AppColors.unselectedGrey,
-                  blurRadius: 10.0,
-                  offset: Offset(4, 4),
+                  color: AppColors.primaryColor,
+                  blurRadius: 7.0,
+                  offset: Offset(5, 5),
                 )
               ]),
               child: BottomNavigationBar(
@@ -43,7 +43,7 @@ class DashScreen extends StatelessWidget {
                         color: c.currentIndex.value == 0
                             ? AppColors.primaryColor
                             : AppColors.unselectedGrey,
-                        height: 20,
+                        height: 21,
                       ),
                     ),
                     label: "",
@@ -58,7 +58,7 @@ class DashScreen extends StatelessWidget {
                         color: c.currentIndex.value == 1
                             ? AppColors.primaryColor
                             : AppColors.unselectedGrey,
-                        height: 20,
+                        height: 21,
                       ),
                     ),
                     label: "",
@@ -73,7 +73,8 @@ class DashScreen extends StatelessWidget {
                         color: c.currentIndex.value == 2
                             ? AppColors.primaryColor
                             : AppColors.unselectedGrey,
-                        height: 23,
+                        height: 20,
+                        //width: 17,
                       ),
                     ),
                     label: "",

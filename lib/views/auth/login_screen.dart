@@ -5,6 +5,7 @@ import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/validator.dart';
 import 'package:petcure_user/views/auth/register_screen.dart';
+import 'package:petcure_user/views/dash_screen.dart';
 import 'package:petcure_user/widgets/custom/custom_password_fields.dart';
 import 'package:petcure_user/widgets/custom/custom_textfield.dart';
 import 'package:petcure_user/widgets/custom/elevated_button.dart';
@@ -63,7 +64,11 @@ class LoginScreen extends StatelessWidget {
                   style: CustomTextStyles.f14W400(color: AppColors.textColor),
                 ),
                 const SizedBox(height: 25),
-                CustomElevatedButton(title: "Login", onTap: () {}),
+                CustomElevatedButton(
+                    title: "Login",
+                    onTap: () {
+                      Get.offAll(() => DashScreen());
+                    }),
                 const SizedBox(height: 35),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
