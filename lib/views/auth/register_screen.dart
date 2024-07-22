@@ -5,6 +5,7 @@ import 'package:petcure_user/controller/auth/register_screen_controller.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/validator.dart';
+import 'package:petcure_user/views/auth/email_verification_screen.dart';
 import 'package:petcure_user/views/auth/login_screen.dart';
 import 'package:petcure_user/widgets/custom/custom_password_fields.dart';
 import 'package:petcure_user/widgets/custom/custom_textfield.dart';
@@ -159,12 +160,12 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 25),
                   CustomElevatedButton(
                       title: "Sign Up",
                       onTap: () {
                         // //Get.offAll(()=>LogInScreen());
-                        // Get.offAll(() => VerifyOtpScreen());
+                        Get.offAll(() => EmailVerificationScreen());
                       }),
                   const SizedBox(height: 22),
                   Row(

@@ -6,13 +6,18 @@ class ImagePath {
   static const String home = "$baseCommonImagePath/home.svg";
   static const String person = "$baseCommonImagePath/person.svg";
   static const String shop = "$baseCommonImagePath/shop.svg";
+  static const String blankProfile = "$baseCommonImagePath/profile.png";
 
   static const String eye = "$baseIconPath/eye.svg";
   static const String eyeOff = "$baseIconPath/eye_off.svg";
   static const String google = "$baseIconPath/google.svg";
   static const String bird = "$baseIconPath/bird.png";
   static const String cat = "$baseIconPath/cat.png";
-  static const String dog = "$baseIconPath/dog.svg";
+  static const String dog = "$baseIconPath/dog.png";
+  static const String star = "$baseIconPath/stars.svg";
+  static const String location = "$baseIconPath/location.svg";
+  static const String verification = "$baseIconPath/verification.png";
+
   static const String rabbit = "$baseIconPath/rabbit.png";
   static const String search = "$baseIconPath/search.svg";
   static const String history = "$baseIconPath/history.svg";

@@ -12,22 +12,24 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center( // Wrap the Column with Center
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: Get.width / 1.3,
-              child: Image.asset(ImagePath.logo),
-            ),
-            const SizedBox(height: 20), // Added SizedBox for spacing
-            const CircularProgressIndicator(
-              color: Color(0xFFF6E5FF),
-            ),
-            const SizedBox(
-              height: 35,
-            ),
-          ],
+      body: Center(
+        // Wrap the Column with Center
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: Get.width / 1.3,
+                child: Image.asset(ImagePath.logo),
+              ),
+              const CircularProgressIndicator(
+                color: Color(0xFFF6E5FF),
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+            ],
+          ),
         ),
       ),
     );

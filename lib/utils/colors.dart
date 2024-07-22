@@ -27,7 +27,8 @@ class AppColors {
   static final shimmerBase = Colors.grey.withOpacity(0.20);
   static const Color shimmerHighlight = Color(0xFFE1E1E1);
 
-  static const Color lGrey = Color(0xFFF5F5F5);
+  static const Color lGrey = Color(0xFF7C7A7A);
+  static const Color lightGrey = Color(0xFF7D7D7D);
   static const Color secondaryTextColor = Color(0xFFAAAAAA);
 
   static Color hexToColor(String code) {
