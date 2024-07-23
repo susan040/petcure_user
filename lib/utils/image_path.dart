@@ -17,6 +17,10 @@ class ImagePath {
   static const String star = "$baseIconPath/stars.svg";
   static const String location = "$baseIconPath/location.svg";
   static const String verification = "$baseIconPath/verification.png";
+  static const String patients = "$baseIconPath/patients.svg";
+  static const String experience = "$baseIconPath/experience.svg";
+  static const String review = "$baseIconPath/review.svg";
+  static const String rate = "$baseIconPath/star.svg";
 
   static const String rabbit = "$baseIconPath/rabbit.png";
   static const String search = "$baseIconPath/search.svg";
