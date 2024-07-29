@@ -4,6 +4,7 @@ import 'package:petcure_user/controller/dashboard/shop_screen_controller.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
+import 'package:petcure_user/views/dashboard/product_description_screen.dart';
 
 class ShopScreen extends StatelessWidget {
   static String routeName = "/shop-screen";
@@ -39,11 +40,11 @@ class ShopScreen extends StatelessWidget {
                     crossAxisCount: 2,
                     crossAxisSpacing: 14,
                     mainAxisSpacing: 14,
-                    childAspectRatio: 0.87,
+                    childAspectRatio: 0.72,
                   ),
                   itemCount: 8, // Replace with the actual number of products
                   itemBuilder: (context, index) {
-                    return ProductWidget();
+                    return const ProductWidget();
                   },
                 ),
               ],
@@ -63,8 +64,8 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        
+      onTap: () {
+        Get.to(() => ProductDescriptionScreen());
       },
       child: Container(
         height: 208,

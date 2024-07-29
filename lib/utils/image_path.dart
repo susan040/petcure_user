@@ -25,6 +25,7 @@ class ImagePath {
   static const String toy = "$baseIconPath/toy.png";
   static const String accessories = "$baseIconPath/accessories.png";
   static const String product = "$baseIconPath/product.png";
+  static const String shopping = "$baseIconPath/shopping.svg";
 
   static const String rabbit = "$baseIconPath/rabbit.png";
   static const String search = "$baseIconPath/search.svg";

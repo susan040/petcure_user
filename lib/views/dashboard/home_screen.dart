@@ -5,7 +5,7 @@ import 'package:petcure_user/controller/dashboard/home_screen_controller.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
-import 'package:petcure_user/views/dashboard/description_screen.dart';
+import 'package:petcure_user/views/dashboard/doctor_description_screen.dart';
 import 'package:petcure_user/widgets/custom/custom_textfield.dart';
 
 class HomeScreen extends StatelessWidget {
