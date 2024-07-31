@@ -25,4 +25,16 @@ class ProductDescController extends GetxController {
   void updatePageIndex(int index) {
     currentPage.value = index;
   }
+
+  var likes = 2.obs;
+  var isLiked = false.obs;
+
+  void toggleLike() {
+    if (isLiked.value) {
+      likes.value--;
+    } else {
+      likes.value++;
+    }
+    isLiked.value = !isLiked.value;
+  }
 }
