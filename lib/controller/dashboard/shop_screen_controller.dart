@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
-class ShopScreenController extends GetxController
-{
+class ShopScreenController extends GetxController {
   var selectedCategory = ''.obs;
 
   void toggleSelection(String category) {
@@ -10,5 +9,10 @@ class ShopScreenController extends GetxController
     } else {
       selectedCategory.value = category;
     }
+  }
+
+  final selectedPayment = ''.obs;
+  void updateSelectedPayment(String payment) {
+    selectedPayment.value = payment;
   }
 }

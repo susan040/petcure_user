@@ -8,6 +8,9 @@ class ImagePath {
   static const String shop = "$baseCommonImagePath/shop.svg";
   static const String blankProfile = "$baseCommonImagePath/profile.png";
   static const String store = "$baseCommonImagePath/store.png";
+  static const String khalti = "$baseCommonImagePath/khalti.png";
+  static const String esewa = "$baseCommonImagePath/esewa.png";
+  static const String imepay = "$baseCommonImagePath/imepay.png";
 
   static const String eye = "$baseIconPath/eye.svg";
   static const String eyeOff = "$baseIconPath/eye_off.svg";

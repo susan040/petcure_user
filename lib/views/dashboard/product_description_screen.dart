@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/dashboard/product_desc_controller.dart';
 import 'package:petcure_user/utils/colors.dart';
+import 'package:petcure_user/utils/custom_snackbar.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
+import 'package:petcure_user/widgets/custom/elevated_button.dart';
 import 'package:petcure_user/widgets/description_screen_widget.dart';
 
 class ProductDescriptionScreen extends StatelessWidget {
@@ -215,6 +217,22 @@ class ProductDescriptionScreen extends StatelessWidget {
                   Text("Reviews & Ratings", style: CustomTextStyles.f16W600()),
                   const SizedBox(height: 10),
                   ReviewsWidget(controller: controller),
+                  const SizedBox(height: 16),
+                  Text("Similar Product", style: CustomTextStyles.f16W600()),
+                  const SizedBox(height: 10),
+                  const SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        SimilarProduct(),
+                        SizedBox(width: 18),
+                        SimilarProduct(),
+                        SizedBox(width: 18),
+                        SimilarProduct(),
+                        SizedBox(width: 18),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -233,8 +251,36 @@ class ProductDescriptionScreen extends StatelessWidget {
             offset: Offset(5, 5),
           ),
         ]),
-        child: Row(
-          children: [],
+        child: Padding(
+          padding:
+              const EdgeInsets.only(left: 18, right: 18, top: 15, bottom: 15),
+          child: Row(
+            children: [
+              Container(
+                  height: 55,
+                  width: Get.width / 2.3,
+                  decoration: BoxDecoration(
+                      color: AppColors.extraWhite,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          width: 0.5, color: AppColors.primaryColor)),
+                  child: Center(
+                      child: Text("Buy",
+                          style: CustomTextStyles.f14W600(
+                              color: AppColors.primaryColor)))),
+              const SizedBox(width: 15),
+              SizedBox(
+                  width: Get.width / 2.3,
+                  height: 55,
+                  child: CustomElevatedButton(
+                      title: "Add To Cart",
+                      onTap: () {
+                        CustomSnackBar.success(
+                            title: "Produce Added",
+                            message: "Add to cart successful");
+                      }))
+            ],
+          ),
         ),
       ),
     );

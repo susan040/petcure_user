@@ -77,6 +77,7 @@ class StarWidget extends StatelessWidget {
     );
   }
 }
+
 class ReviewsWidget extends StatelessWidget {
   const ReviewsWidget({
     super.key,
@@ -88,8 +89,7 @@ class ReviewsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.only(left: 14, right: 14, top: 14),
+      padding: const EdgeInsets.only(left: 14, right: 14, top: 14),
       height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -102,8 +102,7 @@ class ReviewsWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Dibin s. | 2 years ago",
-                  style: CustomTextStyles.f14W600()),
+              Text("Dibin s. | 2 years ago", style: CustomTextStyles.f14W600()),
               Row(
                 children: [
                   InkWell(onTap: () {
@@ -146,8 +145,8 @@ class ReviewsWidget extends StatelessWidget {
             onTap: () {},
             child: Center(
               child: Text("View All",
-                  style: CustomTextStyles.f14W700(
-                      color: AppColors.primaryColor)),
+                  style:
+                      CustomTextStyles.f14W700(color: AppColors.primaryColor)),
             ),
           )
         ],
@@ -155,6 +154,7 @@ class ReviewsWidget extends StatelessWidget {
     );
   }
 }
+
 class Dot extends StatelessWidget {
   final bool isActive;
 
@@ -169,6 +169,70 @@ class Dot extends StatelessWidget {
       decoration: BoxDecoration(
         color: isActive ? AppColors.primaryColor : AppColors.secondaryColor,
         shape: BoxShape.circle,
+      ),
+    );
+  }
+}
+
+class SimilarProduct extends StatelessWidget {
+  const SimilarProduct({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 208,
+      width: Get.width / 2.2,
+      decoration: BoxDecoration(
+        color: AppColors.extraWhite,
+        border: Border.all(width: 0.5, color: AppColors.lGrey),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 12),
+          Center(
+            child: Image.asset(
+              ImagePath.product,
+              height: 90,
+              width: 118,
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 3),
+            child: Text(
+              "Oxbow Simple Rewards Bell Pepper Treats",
+              style: CustomTextStyles.f12W600(),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 3),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                  size: 16,
+                ),
+                Text(
+                  "4.3/5 (48)| 12 Sold",
+                  style: CustomTextStyles.f10W400(color: AppColors.lGrey),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 12, right: 12),
+            child: Text(
+              "Rs.450",
+              style: CustomTextStyles.f12W600(color: AppColors.primaryColor),
+            ),
+          ),
+        ],
       ),
     );
   }
