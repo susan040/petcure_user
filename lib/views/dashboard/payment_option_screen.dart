@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/dashboard/shop_screen_controller.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
+import 'package:petcure_user/views/dashboard/order_success_screen.dart';
+import 'package:petcure_user/widgets/custom/elevated_button.dart';
 
 class PaymentOptionScreen extends StatelessWidget {
   static String routeName = "/payment-option-screen";
@@ -13,42 +16,52 @@ class PaymentOptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 2,
-          centerTitle: false,
-          backgroundColor: AppColors.extraWhite,
-          leading: InkWell(
-            onTap: () => Get.back(),
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
+      appBar: AppBar(
+        elevation: 2,
+        centerTitle: false,
+        backgroundColor: AppColors.extraWhite,
+        leading: InkWell(
+          onTap: () => Get.back(),
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
-          title: Text("Select Payment Method",
-              style: CustomTextStyles.f16W600(color: AppColors.textColor)),
         ),
-        body: Column(
-          children: [
-            PaymentButton(
-                image: ImagePath.khalti,
-                isSelected: c.selectedPayment.value == 'khalti',
-                onTap: () {
-                  c.updateSelectedPayment("khalti");
-                }),
-            PaymentButton(
-                image: ImagePath.esewa,
-                isSelected: c.selectedPayment.value == 'esewa',
-                onTap: () {
-                  c.updateSelectedPayment("esewa");
-                }),
-            // PaymentButton(
-            //     image: ImagePath.imepay,
-            //     isSelected: c.selectedPayment.value == 'imepay',
-            //     onTap: () {
-            //       c.updateSelectedPayment("imepay");
-            //     }),
-          ],
-        ));
+        title: Text("Select Payment Method",
+            style: CustomTextStyles.f16W600(color: AppColors.textColor)),
+      ),
+      body: Column(
+        children: [
+          Obx(() => PaymentButton(
+              image: ImagePath.khalti,
+              isSelected: c.selectedPayment.value == 'khalti',
+              onTap: () {
+                c.updateSelectedPayment("khalti");
+              })),
+          Obx(() => PaymentButton(
+              image: ImagePath.esewa,
+              isSelected: c.selectedPayment.value == 'esewa',
+              onTap: () {
+                c.updateSelectedPayment("esewa");
+              })),
+          // Obx(() => PaymentButton(
+          //     image: ImagePath.imepay,
+          //     isSelected: c.selectedPayment.value == 'imepay',
+          //     onTap: () {
+          //       c.updateSelectedPayment("imepay");
+          //     })),
+        ],
+      ),
+      bottomNavigationBar: Padding(
+        padding:
+            const EdgeInsets.only(left: 18, right: 18, bottom: 12, top: 10),
+        child: CustomElevatedButton(
+            title: "Continue",
+            onTap: () {
+              Get.offAll(() => OrderSuccessScreen());
+            }),
+      ),
+    );
   }
 }
 
@@ -67,6 +80,8 @@ class PaymentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(left: 18, right: 18, top: 14),
@@ -90,12 +105,7 @@ class PaymentButton extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      image,
-                      height: 33,
-                      width: 77,
-                      fit: BoxFit.fill,
-                    ),
+                    SvgPicture.asset(image),
                   ],
                 ),
               ),
