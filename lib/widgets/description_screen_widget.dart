@@ -90,7 +90,7 @@ class ReviewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 14, right: 14, top: 14),
-      height: 200,
+      height: 220,
       width: double.infinity,
       decoration: BoxDecoration(
           color: AppColors.extraWhite,

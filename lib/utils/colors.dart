@@ -6,7 +6,7 @@ class AppColors {
   static const tertiaryColor = Color(0xFFFFFFFF);
   static const backGroundColor = tertiaryColor;
   static const borderColor = Color(0xFFA3A3A3);
-  static const textColor = Color(0xFF303030);
+  static const textColor = Color(0xFF000000);
   static const textColorAccent = Color(0xFFC5C5C5);
   static const hintTextColor = borderColor;
 

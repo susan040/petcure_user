@@ -18,6 +18,8 @@ class ProductDescriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.extraWhite,
+
       appBar: AppBar(
         elevation: 2,
         centerTitle: false,
@@ -258,7 +260,7 @@ class ProductDescriptionScreen extends StatelessWidget {
             children: [
               Container(
                   height: 55,
-                  width: Get.width / 2.3,
+                  width: Get.width / 2.35,
                   decoration: BoxDecoration(
                       color: AppColors.extraWhite,
                       borderRadius: BorderRadius.circular(10),
@@ -268,9 +270,9 @@ class ProductDescriptionScreen extends StatelessWidget {
                       child: Text("Buy",
                           style: CustomTextStyles.f14W600(
                               color: AppColors.primaryColor)))),
-              const SizedBox(width: 15),
+              const SizedBox(width: 20),
               SizedBox(
-                  width: Get.width / 2.3,
+                  width: Get.width / 2.35,
                   height: 55,
                   child: CustomElevatedButton(
                       title: "Add To Cart",

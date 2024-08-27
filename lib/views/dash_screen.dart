@@ -13,6 +13,8 @@ class DashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.extraWhite,
+
         body: Obx(() => c.pages[c.currentIndex.value]),
         bottomNavigationBar: Obx(() => Container(
               decoration: const BoxDecoration(boxShadow: [
@@ -69,8 +71,23 @@ class DashScreen extends StatelessWidget {
                         top: 9,
                       ),
                       child: SvgPicture.asset(
-                        ImagePath.person,
+                        ImagePath.shopping,
                         color: c.currentIndex.value == 2
+                            ? AppColors.primaryColor
+                            : AppColors.unselectedGrey,
+                        height: 20,
+                      ),
+                    ),
+                    label: "",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 9,
+                      ),
+                      child: SvgPicture.asset(
+                        ImagePath.person,
+                        color: c.currentIndex.value == 3
                             ? AppColors.primaryColor
                             : AppColors.unselectedGrey,
                         height: 20,

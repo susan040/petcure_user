@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
+import 'package:petcure_user/views/dashboard/appointment_booking_screen.dart';
 import 'package:petcure_user/widgets/custom/elevated_button.dart';
 import 'package:petcure_user/widgets/description_screen_widget.dart';
 
@@ -13,6 +14,8 @@ class DescriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.extraWhite,
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -235,7 +238,11 @@ class DescriptionScreen extends StatelessWidget {
               ),
               SizedBox(
                 width: Get.width / 2.3,
-                child: CustomElevatedButton(title: "Book Now", onTap: () {}),
+                child: CustomElevatedButton(
+                    title: "Book Now",
+                    onTap: () {
+                      Get.to(() => AppointmentBookingScreen());
+                    }),
               )
             ],
           ),

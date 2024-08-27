@@ -15,6 +15,8 @@ class MyCartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.extraWhite,
+
       appBar: AppBar(
         elevation: 2,
         centerTitle: false,
@@ -116,7 +118,7 @@ class MyCartScreen extends StatelessWidget {
               const SizedBox(width: 13),
               SizedBox(
                   height: 55,
-                  width: Get.width / 3,
+                  width: Get.width / 3.2,
                   child: CustomElevatedButton(
                       title: "Check Out",
                       onTap: () {
@@ -179,7 +181,7 @@ class MyCartWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: 250,
+                width: 217,
                 child: Text(
                   "Whiskas 1+ Lamb Dry Cat Food",
                   style: CustomTextStyles.f16W400(),

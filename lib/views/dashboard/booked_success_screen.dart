@@ -5,9 +5,8 @@ import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
 import 'package:petcure_user/views/dash_screen.dart';
 
-class OrderSuccessScreen extends StatelessWidget {
-  static String routeName = "/order-success-screen";
-  const OrderSuccessScreen({super.key});
+class BookedSuccessScreen extends StatelessWidget {
+  const BookedSuccessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +51,7 @@ class OrderSuccessScreen extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(ImagePath.orderSuccess),
+                Image.asset(ImagePath.bookedSuccess),
                 const SizedBox(height: 10),
                 Text("Thank You", style: CustomTextStyles.f32W600()),
                 Text("Purchase was Successful",

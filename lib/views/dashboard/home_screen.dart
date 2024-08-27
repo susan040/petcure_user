@@ -16,6 +16,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      backgroundColor: AppColors.extraWhite,
       body: SafeArea(
           child: ListView.builder(
               scrollDirection: Axis.vertical,

@@ -8,7 +8,6 @@ import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
 import 'package:petcure_user/views/auth/login_screen.dart';
 import 'package:petcure_user/views/dashboard/edit_profile_screen.dart';
-import 'package:petcure_user/views/dashboard/my_cart_screen.dart';
 import 'package:petcure_user/widgets/custom/elevated_button.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -19,23 +18,14 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.extraWhite,
+
       appBar: AppBar(
         elevation: 1,
         centerTitle: false,
         backgroundColor: Colors.white,
         title: Text("My Profile",
             style: CustomTextStyles.f16W600(color: AppColors.textColor)),
-        actions: [
-          InkWell(
-            onTap: () {
-              Get.to(() => MyCartScreen());
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: SvgPicture.asset(ImagePath.shopping),
-            ),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 20, right: 18, top: 25),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/splash_screen_controller.dart';
+import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/image_path.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.extraWhite,
       body: Center(
         // Wrap the Column with Center
         child: SingleChildScrollView(

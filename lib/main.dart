@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petcure_user/utils/theme.dart';
 import 'package:petcure_user/views/splash_screen.dart';
 
 void main() {
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: basicTheme(),
+      theme: ThemeData(useMaterial3: false),
       themeMode: ThemeMode.light,
       home: SplashScreen(),
     );
