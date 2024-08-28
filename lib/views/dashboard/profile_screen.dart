@@ -7,7 +7,11 @@ import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
 import 'package:petcure_user/views/auth/login_screen.dart';
+import 'package:petcure_user/views/dashboard/about_us_screen.dart';
 import 'package:petcure_user/views/dashboard/edit_profile_screen.dart';
+import 'package:petcure_user/views/dashboard/help_screen.dart';
+import 'package:petcure_user/views/dashboard/history_screen.dart';
+import 'package:petcure_user/views/dashboard/terms_condition_screen.dart';
 import 'package:petcure_user/widgets/custom/elevated_button.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -19,9 +23,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
-
       appBar: AppBar(
-        elevation: 1,
+        elevation: 2,
         centerTitle: false,
         backgroundColor: Colors.white,
         title: Text("My Profile",
@@ -94,7 +97,9 @@ class ProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 35),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => TermsConditionScreen());
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -112,7 +117,9 @@ class ProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 15),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => AboutUsScreen());
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -135,7 +142,9 @@ class ProfileScreen extends StatelessWidget {
             Divider(thickness: 0.5, color: AppColors.lGrey),
             SizedBox(height: 15),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => HelpScreen());
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -190,7 +199,9 @@ class ProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 18),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => HistoryScreen());
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

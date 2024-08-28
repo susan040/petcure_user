@@ -13,6 +13,7 @@ class ImagePath {
   static const String imepay = "$baseCommonImagePath/imepay.png";
   static const String orderSuccess = "$baseCommonImagePath/order_success.png";
   static const String bookedSuccess = "$baseCommonImagePath/booked_success.png";
+  static const String blankImage = "$baseCommonImagePath/blank_photo.jpg";
 
   static const String eye = "$baseIconPath/eye.svg";
   static const String eyeOff = "$baseIconPath/eye_off.svg";
