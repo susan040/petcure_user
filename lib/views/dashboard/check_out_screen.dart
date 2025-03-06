@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:petcure_user/controller/dashboard/check_out_screen_controller.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
@@ -9,14 +10,13 @@ import 'package:petcure_user/widgets/custom/elevated_button.dart';
 
 class CheckOutScreen extends StatelessWidget {
   static String routeName = "/check-out-screen";
-
-  const CheckOutScreen({super.key});
+  final c = Get.put(CheckOutScreenController());
+  CheckOutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
-
       appBar: AppBar(
         elevation: 2,
         centerTitle: false,
@@ -28,7 +28,7 @@ class CheckOutScreen extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        title: Text("Check out",
+        title: Text("Checkout",
             style: CustomTextStyles.f16W600(color: AppColors.textColor)),
       ),
       body: Padding(
@@ -119,8 +119,33 @@ class CheckOutScreen extends StatelessWidget {
                               Text("Rs.4700",
                                   style: CustomTextStyles.f14W600(
                                       color: AppColors.primaryColor)),
-                              const SizedBox(width: 150),
-                              Text("Qty:1", style: CustomTextStyles.f12W400())
+                              const SizedBox(width: 120),
+                              Text("Qty:", style: CustomTextStyles.f14W600()),
+                              const SizedBox(width: 8),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: c.decrement,
+                                    child: Text('-',
+                                        style: CustomTextStyles.f14W400(
+                                            color: AppColors.textColor)),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Obx(() => Text(
+                                        '${c.count}',
+                                        style: CustomTextStyles.f12W400(),
+                                      )),
+                                  const SizedBox(width: 8),
+                                  InkWell(
+                                    onTap: c.increment,
+                                    child: Text('+',
+                                        style: CustomTextStyles.f14W400(
+                                            color: AppColors.textColor)),
+                                  )
+                                ],
+                              )
                             ],
                           ),
                         ],

@@ -14,8 +14,20 @@ class EmailVerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Center(
+      backgroundColor: AppColors.extraWhite,
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: false,
+        backgroundColor: AppColors.extraWhite,
+        leading: InkWell(
+          onTap: () => Get.back(),
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -71,14 +83,26 @@ class EmailVerificationScreen extends StatelessWidget {
                 print('Resend code tapped');
                 // Add your resend code logic here
               },
-              child: Text(
-                "Didn't get code? Send",
-                style: CustomTextStyles.f14W400(color: AppColors.primaryColor),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Didn't get code?",
+                    style: CustomTextStyles.f14W400(),
+                  ),
+                  const SizedBox(width: 5), // Space between Pinput and button
+
+                  Text(
+                    "Send",
+                    style:
+                        CustomTextStyles.f14W400(color: AppColors.primaryColor),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-      )),
+      ),
       bottomNavigationBar: Padding(
         padding:
             const EdgeInsets.only(left: 18, right: 18, top: 10, bottom: 20),
@@ -87,8 +111,7 @@ class EmailVerificationScreen extends StatelessWidget {
           child: CustomElevatedButton(
               title: "Submit",
               onTap: () {
-                                      Get.offAll(() => DashScreen());
-
+                Get.offAll(() => DashScreen());
               }),
         ),
       ),

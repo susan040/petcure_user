@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/splash_screen_controller.dart';
@@ -14,7 +15,6 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
       body: Center(
-        // Wrap the Column with Center
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -25,6 +25,12 @@ class SplashScreen extends StatelessWidget {
               ),
               const CircularProgressIndicator(
                 color: Color(0xFFF6E5FF),
+                backgroundColor: AppColors.primaryColor,
+              ),
+              const SizedBox(height: 40),
+              const CupertinoActivityIndicator(
+                radius: 30,
+                color: AppColors.primaryColor,
               ),
               const SizedBox(
                 height: 100,

@@ -16,18 +16,10 @@ class MyCartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
-
       appBar: AppBar(
         elevation: 2,
         centerTitle: false,
         backgroundColor: AppColors.extraWhite,
-        leading: InkWell(
-          onTap: () => Get.back(),
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
         title: Text("My Cart (2)",
             style: CustomTextStyles.f16W600(color: AppColors.textColor)),
         actions: [
@@ -39,7 +31,7 @@ class MyCartScreen extends StatelessWidget {
                       CustomTextStyles.f16W400(color: AppColors.primaryColor)),
             ),
           )
-        ],
+        ]
       ),
       body: Column(
         children: [
@@ -122,7 +114,7 @@ class MyCartScreen extends StatelessWidget {
                   child: CustomElevatedButton(
                       title: "Check Out",
                       onTap: () {
-                        Get.to(() => const CheckOutScreen());
+                        Get.to(() => CheckOutScreen());
                       })),
             ],
           ),

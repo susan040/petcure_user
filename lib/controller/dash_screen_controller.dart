@@ -11,7 +11,9 @@ class DashScreenController extends GetxController {
     HomeScreen(), 
     ShopScreen(), 
     MyCartScreen(),
-    ProfileScreen()]);
+    ProfileScreen()
+    
+    ]);
   RxInt currentIndex = RxInt(0);
 
   void onItemTapped(int index) {

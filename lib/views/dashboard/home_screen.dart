@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:petcure_user/controller/core_controller.dart';
 import 'package:petcure_user/controller/dashboard/home_screen_controller.dart';
+import 'package:petcure_user/models/category.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
@@ -11,12 +14,12 @@ import 'package:petcure_user/widgets/custom/custom_textfield.dart';
 class HomeScreen extends StatelessWidget {
   static String routeName = "/home-screen";
   final c = Get.put(HomeScreenController());
+  final coreController = Get.put(CoreController());
   HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: AppColors.extraWhite,
       body: SafeArea(
           child: ListView.builder(
@@ -41,10 +44,20 @@ class HomeScreen extends StatelessWidget {
                                       "Good Morning 👋",
                                       style: CustomTextStyles.f18W600(),
                                     ),
-                                    Text(
-                                      "Emily Johnson",
-                                      style: CustomTextStyles.f14W400(),
-                                    ),
+                                    Obx(() {
+                                      if (coreController.userType.value ==
+                                          "staff") {
+                                        return Text(
+                                          "${coreController.currentUser.value?.name} (${coreController.currentUser.value?.userType})",
+                                          style: CustomTextStyles.f14W400(),
+                                        );
+                                      } else {
+                                        return Text(
+                                          "${coreController.currentUser.value?.name} (${coreController.currentUser.value?.userType})",
+                                          style: CustomTextStyles.f14W400(),
+                                        );
+                                      }
+                                    })
                                   ]),
                               Container(
                                 width: 50,
@@ -72,22 +85,31 @@ class HomeScreen extends StatelessWidget {
                           style: CustomTextStyles.f14W600(),
                         ),
                         const SizedBox(height: 8),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CategoryWidget(
-                                categoryName: "Dog",
-                                categoryImage: ImagePath.dog),
-                            CategoryWidget(
-                                categoryName: "Cat",
-                                categoryImage: ImagePath.cat),
-                            CategoryWidget(
-                                categoryName: "Rabbit",
-                                categoryImage: ImagePath.rabbit),
-                            CategoryWidget(
-                                categoryName: "Bird",
-                                categoryImage: ImagePath.bird),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 18, right: 18, top: 10, bottom: 10),
+                          child: Obx(() => (c.loading.value)
+                              ? const Center(child: CircularProgressIndicator())
+                              : c.allCategories.isEmpty
+                                  ? Center(
+                                      child: Text(
+                                      "No categories",
+                                      style: CustomTextStyles.f14W400(
+                                          color: AppColors.textGreyColor),
+                                    ))
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: c.allCategories.length,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        final Categories categories =
+                                            c.allCategories[index];
+                                        return CategoryWidget(
+                                            categories: categories);
+                                      },
+                                    )),
                         ),
                         const SizedBox(height: 20),
                         Text(
@@ -199,12 +221,9 @@ class DoctorWidget extends StatelessWidget {
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({
     super.key,
-    required this.categoryName,
-    required this.categoryImage,
+    required this.categories,
   });
-  final String categoryName;
-  final String categoryImage;
-
+  final Categories categories;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -217,8 +236,24 @@ class CategoryWidget extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 4),
-          Image.asset(categoryImage),
-          Text(categoryName, style: CustomTextStyles.f12W400())
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: CachedNetworkImage(
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              fit: BoxFit.cover,
+              height: 50,
+              width: 50,
+              imageUrl: categories.image ?? "",
+              errorWidget: (context, url, error) => Image.asset(
+                "assets/images/blank_profile.jpg",
+                height: 50,
+                width: 50,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Text(categories.name ?? "", style: CustomTextStyles.f12W400())
         ],
       ),
     );

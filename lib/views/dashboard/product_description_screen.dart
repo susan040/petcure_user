@@ -6,6 +6,7 @@ import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_snackbar.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
+import 'package:petcure_user/views/dashboard/check_out_screen.dart';
 import 'package:petcure_user/widgets/custom/elevated_button.dart';
 import 'package:petcure_user/widgets/description_screen_widget.dart';
 
@@ -19,7 +20,6 @@ class ProductDescriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
-
       appBar: AppBar(
         elevation: 2,
         centerTitle: false,
@@ -258,18 +258,23 @@ class ProductDescriptionScreen extends StatelessWidget {
               const EdgeInsets.only(left: 18, right: 18, top: 15, bottom: 15),
           child: Row(
             children: [
-              Container(
-                  height: 55,
-                  width: Get.width / 2.35,
-                  decoration: BoxDecoration(
-                      color: AppColors.extraWhite,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 0.5, color: AppColors.primaryColor)),
-                  child: Center(
-                      child: Text("Buy",
-                          style: CustomTextStyles.f14W600(
-                              color: AppColors.primaryColor)))),
+              InkWell(
+                onTap: () {
+                  Get.to(() => CheckOutScreen());
+                },
+                child: Container(
+                    height: 55,
+                    width: Get.width / 2.35,
+                    decoration: BoxDecoration(
+                        color: AppColors.extraWhite,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 0.5, color: AppColors.primaryColor)),
+                    child: Center(
+                        child: Text("Buy",
+                            style: CustomTextStyles.f14W600(
+                                color: AppColors.primaryColor)))),
+              ),
               const SizedBox(width: 20),
               SizedBox(
                   width: Get.width / 2.35,
