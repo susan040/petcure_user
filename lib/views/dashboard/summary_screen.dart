@@ -35,7 +35,7 @@ class SummaryScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          // const DoctorWidget(),
+          const DoctorWidget(),
           Padding(
             padding:
                 const EdgeInsets.only(left: 18, right: 18, top: 18, bottom: 18),

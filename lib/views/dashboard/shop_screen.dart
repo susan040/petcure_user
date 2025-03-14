@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/dashboard/shop_screen_controller.dart';
+import 'package:petcure_user/models/category.dart';
+import 'package:petcure_user/models/products.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
@@ -15,7 +18,6 @@ class ShopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -25,29 +27,61 @@ class ShopScreen extends StatelessWidget {
               children: [
                 Text("Choose Category", style: CustomTextStyles.f16W600()),
                 const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CategoryWidget(image: ImagePath.food, name: "Foods"),
-                    CategoryWidget(
-                        image: ImagePath.accessories, name: "Accessory"),
-                    CategoryWidget(image: ImagePath.toy, name: "Toys"),
-                  ],
+                Obx(
+                  () => (c.loading.value)
+                      ? const Center(child: CircularProgressIndicator())
+                      : c.allCategories.isEmpty
+                          ? Center(
+                              child: Text(
+                                "No categories",
+                                style: CustomTextStyles.f12W400(
+                                    color: AppColors.textGreyColor),
+                              ),
+                            )
+                          : SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  // Adding the "All" category
+                                  CategoryWidget(
+                                    categories: Categories(name: 'All'),
+                                  ),
+                                  // Other categories
+                                  ...c.allCategories.map((categories) {
+                                    return CategoryWidget(
+                                        categories: categories);
+                                  }),
+                                ],
+                              ),
+                            ),
                 ),
                 const SizedBox(height: 20),
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 14,
-                    mainAxisSpacing: 14,
-                    childAspectRatio: 0.72,
-                  ),
-                  itemCount: 8, // Replace with the actual number of products
-                  itemBuilder: (context, index) {
-                    return const ProductWidget();
-                  },
+                Obx(
+                  () => (c.loading.value)
+                      ? const Center(child: CircularProgressIndicator())
+                      : c.allProducts.isEmpty
+                          ? Center(
+                              child: Text(
+                              "No Products",
+                              style: CustomTextStyles.f12W400(
+                                  color: AppColors.textGreyColor),
+                            ))
+                          : GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 14,
+                                mainAxisSpacing: 14,
+                                childAspectRatio: 0.72,
+                              ),
+                              itemCount: c.allProducts.length,
+                              itemBuilder: (context, index) {
+                                final Products products = c.allProducts[index];
+                                return ProductWidget(products: products);
+                              },
+                            ),
                 ),
               ],
             ),
@@ -61,13 +95,16 @@ class ShopScreen extends StatelessWidget {
 class ProductWidget extends StatelessWidget {
   const ProductWidget({
     super.key,
+    required this.products,
   });
-
+  final Products products;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(() => ProductDescriptionScreen());
+        Get.to(() => ProductDescriptionScreen(
+              products: products,
+            ));
       },
       child: Container(
         height: 208,
@@ -88,23 +125,35 @@ class ProductWidget extends StatelessWidget {
           children: [
             const SizedBox(height: 12),
             Center(
-              child: Image.asset(
-                ImagePath.product,
-                height: 90,
-                width: 118,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: CachedNetworkImage(
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  fit: BoxFit.cover,
+                  height: 90,
+                  width: 118,
+                  imageUrl: products.productImage ?? "",
+                  errorWidget: (context, url, error) => Image.asset(
+                    "assets/images/blank_profile.jpg",
+                    height: 90,
+                    width: 118,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 3),
+              padding: const EdgeInsets.only(
+                  left: 12, right: 12, top: 10, bottom: 5),
               child: Text(
-                "Oxbow Simple Rewards Bell Pepper Treats",
+                "${products.productName}",
                 style: CustomTextStyles.f12W600(),
                 textAlign: TextAlign.left,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12, bottom: 3),
+              padding: const EdgeInsets.only(left: 12, right: 12, bottom: 4),
               child: Row(
                 children: [
                   const Icon(
@@ -120,9 +169,17 @@ class ProductWidget extends StatelessWidget {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12, bottom: 6),
+              child: Text(
+                "${products.categoryName}",
+                style: CustomTextStyles.f12W400(),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.only(left: 12, right: 12),
               child: Text(
-                "Rs.450",
+                "${products.productPrice}",
                 style: CustomTextStyles.f12W600(color: AppColors.primaryColor),
               ),
             ),
@@ -136,40 +193,58 @@ class ProductWidget extends StatelessWidget {
 class CategoryWidget extends StatelessWidget {
   CategoryWidget({
     super.key,
-    required this.image,
-    required this.name,
+    required this.categories,
   });
 
   final c = Get.put(ShopScreenController());
-  final String image;
-  final String name;
+  final Categories categories;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => c.toggleSelection(name),
+      onTap: () => c.toggleSelection(categories.name ?? ""),
       child: Obx(
         () => Container(
           margin: const EdgeInsets.only(left: 3, right: 3),
           height: 35,
-          width: 100,
+          width: categories.name == 'All' ? 60 : 115,
           decoration: BoxDecoration(
             color: AppColors.extraWhite,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: 1,
-              color: c.selectedCategory.value == name
+              color: c.selectedCategory.value == categories.name
                   ? AppColors.primaryColor
                   : AppColors.secondaryColor,
             ),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(image),
-              Text(
-                name,
-                style: CustomTextStyles.f12W400(),
-              ),
+              if (categories.name == 'All')
+                Text(
+                  'All',
+                  style: CustomTextStyles.f12W400(),
+                )
+              else
+                ClipRRect(
+                  child: CachedNetworkImage(
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    fit: BoxFit.cover,
+                    imageUrl: categories.image ?? "",
+                    errorWidget: (context, url, error) => Image.asset(
+                      ImagePath.blankImage,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              // Always show the category name, centered
+              if (categories.name != 'All')
+                Text(
+                  categories.name ?? "",
+                  style: CustomTextStyles.f12W400(),
+                ),
             ],
           ),
         ),

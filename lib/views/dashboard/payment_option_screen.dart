@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:petcure_user/controller/core_controller.dart';
 import 'package:petcure_user/controller/dashboard/shop_screen_controller.dart';
+import 'package:petcure_user/function/esewa_function.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
-import 'package:petcure_user/views/dashboard/order_success_screen.dart';
 import 'package:petcure_user/widgets/custom/elevated_button.dart';
 
 class PaymentOptionScreen extends StatelessWidget {
   static String routeName = "/payment-option-screen";
   final c = Get.put(ShopScreenController());
-  PaymentOptionScreen({super.key});
-
+  PaymentOptionScreen(
+      {super.key,
+      required this.shippingAddress,
+      required this.quantity,
+      required this.price,
+      required this.productId});
+  final String shippingAddress;
+  final String quantity;
+  final String price;
+  final String productId;
+  final coreController = Get.put(CoreController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
-
       appBar: AppBar(
         elevation: 2,
         centerTitle: false,
@@ -34,11 +43,16 @@ class PaymentOptionScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Text(quantity),
+          Text(price),
+          Text(shippingAddress),
+          Text(productId),
+
           Obx(() => PaymentButton(
               image: ImagePath.khalti,
-              isSelected: c.selectedPayment.value == 'khalti',
+              isSelected: c.selectedPayment.value == 'cash',
               onTap: () {
-                c.updateSelectedPayment("khalti");
+                c.updateSelectedPayment("cash");
               })),
           Obx(() => PaymentButton(
               image: ImagePath.esewa,
@@ -60,7 +74,15 @@ class PaymentOptionScreen extends StatelessWidget {
         child: CustomElevatedButton(
             title: "Continue",
             onTap: () {
-              Get.offAll(() => OrderSuccessScreen());
+              if (c.selectedPayment.value == 'esewa') {
+                final Esewa esewa = Esewa();
+                esewa.pay(
+                    productId,
+                    coreController.currentUser.value!.userId ?? "",
+                    shippingAddress,
+                    c.selectedPayment.value,
+                    quantity);
+              }
             }),
       ),
     );

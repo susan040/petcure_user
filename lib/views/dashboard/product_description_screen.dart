@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/dashboard/product_desc_controller.dart';
+import 'package:petcure_user/controller/dashboard/shop_screen_controller.dart';
+import 'package:petcure_user/models/products.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_snackbar.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
@@ -13,11 +16,12 @@ import 'package:petcure_user/widgets/description_screen_widget.dart';
 class ProductDescriptionScreen extends StatelessWidget {
   static String routeName = "/product-description-screen";
   final ProductDescController controller = Get.put(ProductDescController());
-
-  ProductDescriptionScreen({super.key});
-
+  final c = Get.put(ShopScreenController());
+  ProductDescriptionScreen({super.key, required this.products});
+  final Products products;
   @override
   Widget build(BuildContext context) {
+    int remainingQuantity = c.getRemainingQuantity(products);
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
       appBar: AppBar(
@@ -38,27 +42,42 @@ class ProductDescriptionScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            SizedBox(
-              height: 300,
-              child: PageView.builder(
-                onPageChanged: (index) {
-                  controller.updatePageIndex(index);
-                },
-                itemCount: controller.images.length,
-                itemBuilder: (context, index) {
-                  return Center(
-                    child: Image.asset(
-                      controller.images[index], // Load images from controller
-                      width: 200, // Adjust width as needed
-                      height: 270,
-                      fit: BoxFit.fill,
-                    ),
-                  );
-                },
+            // SizedBox(
+            //   height: 300,
+            //   child: PageView.builder(
+            //     onPageChanged: (index) {
+            //       controller.updatePageIndex(index);
+            //     },
+            //     itemCount: controller.images.length,
+            //     itemBuilder: (context, index) {
+            //       return Center(
+            //         child: Image.asset(
+            //           controller.images[index], // Load images from controller
+            //           width: 200, // Adjust width as needed
+            //           height: 270,
+            //           fit: BoxFit.fill,
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
+            ClipRRect(
+              child: CachedNetworkImage(
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                fit: BoxFit.cover,
+                height: 270,
+                width: 250,
+                imageUrl: products.productImage ?? "",
+                errorWidget: (context, url, error) => Image.asset(
+                  "assets/images/blank_profile.jpg",
+                  height: 270,
+                  width: 200,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            const SizedBox(
-                height: 16), // Add some space between the PageView and dots
+            const SizedBox(height: 16),
 
             Obx(() {
               int currentPage = controller.currentPage.value;
@@ -74,16 +93,18 @@ class ProductDescriptionScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Whiskas 1+ Lamb Dry Cat Food",
+                  Text("${products.productName}",
                       style: CustomTextStyles.f18W600()),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Rs.4700", style: CustomTextStyles.f16W600()),
+                      Text("Rs.${products.productPrice}",
+                          style: CustomTextStyles.f16W600()),
                       Row(
                         children: [
-                          Text("12 Sold", style: CustomTextStyles.f14W400()),
+                          Text("${products.totalSold ?? 0} Sold",
+                              style: CustomTextStyles.f14W400()),
                           const SizedBox(width: 5),
                           SvgPicture.asset(ImagePath.sharing,
                               height: 14, width: 16)
@@ -97,7 +118,7 @@ class ProductDescriptionScreen extends StatelessWidget {
                       SvgPicture.asset(ImagePath.star),
                       const SizedBox(width: 4),
                       Text(
-                        "4.3/5 | 48 reviews",
+                        "${products.averageRating ?? 0}/5 | ${products.totalReviews ?? 0} reviews",
                         style: CustomTextStyles.f14W400(),
                       )
                     ],
@@ -106,21 +127,29 @@ class ProductDescriptionScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Brand: Whiskas", style: CustomTextStyles.f14W400()),
+                      Text("Category: ${products.categoryName}",
+                          style: CustomTextStyles.f14W400()),
                       Row(
                         children: [
-                          Text("Quantity:", style: CustomTextStyles.f14W400()),
-                          const SizedBox(width: 6),
                           Container(
-                            height: 23,
-                            width: 65,
+                            padding: EdgeInsets.only(
+                                left: 12, right: 12, top: 4, bottom: 4),
                             decoration: BoxDecoration(
                                 color: AppColors.secondaryColor,
                                 borderRadius: BorderRadius.circular(20)),
                             child: Center(
-                              child: Text(
-                                "14 Left",
-                                style: CustomTextStyles.f14W400(),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "$remainingQuantity",
+                                    style: CustomTextStyles.f12W400(),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    "Left",
+                                    style: CustomTextStyles.f12W400(),
+                                  ),
+                                ],
                               ),
                             ),
                           )
@@ -132,8 +161,8 @@ class ProductDescriptionScreen extends StatelessWidget {
                   Text("Description", style: CustomTextStyles.f16W600()),
                   const SizedBox(height: 4),
                   Text(
-                    "Whiskas 1+ Lamb is a balanced dry food for adult cats (12+ months). Its crunchy kibble, with a delicious filling, supports dental health through mechanical abrasion. The tailored mineral content promotes urinary tract health, while zinc ensures healthy skin and a shiny coat. Vitamin A supports vision. This fibre-rich recipe aids digestion and is free from artificial colors and flavors. Made with high-quality ingredients, it is produced in eco-friendly factories using renewable energy and recyclable packaging.",
-                    style: CustomTextStyles.f14W400(),
+                    "${products.productDescription}",
+                    style: CustomTextStyles.f12W400(),
                     textAlign: TextAlign.justify,
                   ),
                   const SizedBox(height: 20),
@@ -218,7 +247,27 @@ class ProductDescriptionScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text("Reviews & Ratings", style: CustomTextStyles.f16W600()),
                   const SizedBox(height: 10),
-                  ReviewsWidget(controller: controller),
+                  // Obx(
+                  //   () => (c.loading.value)
+                  //       ? const Center(child: CircularProgressIndicator())
+                  //       : c.allProducts.isEmpty
+                  //           ? Center(
+                  //               child: Text(
+                  //               "No reviews",
+                  //               style: CustomTextStyles.f12W400(
+                  //                   color: AppColors.textGreyColor),
+                  //             ))
+                  //           : ListView.builder(
+                  //               physics: const NeverScrollableScrollPhysics(),
+                  //               shrinkWrap: true,
+                  //               itemCount: c.allProducts.length,
+                  //               itemBuilder: (context, index) {
+                  //                 final Reviews products =
+                  //                     c.allProducts[index];
+                  //                 return ProductWidget(products: products);
+                  //               },
+                  //             ),
+                  // ),
                   const SizedBox(height: 16),
                   Text("Similar Product", style: CustomTextStyles.f16W600()),
                   const SizedBox(height: 10),
@@ -257,14 +306,16 @@ class ProductDescriptionScreen extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 18, right: 18, top: 15, bottom: 15),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
                 onTap: () {
-                  Get.to(() => CheckOutScreen());
+                  // Get.to(() => CheckOutScreen());
+                  showBuyBottomSheet();
                 },
                 child: Container(
                     height: 55,
-                    width: Get.width / 2.35,
+                    width: Get.width / 2.36,
                     decoration: BoxDecoration(
                         color: AppColors.extraWhite,
                         borderRadius: BorderRadius.circular(10),
@@ -275,9 +326,8 @@ class ProductDescriptionScreen extends StatelessWidget {
                             style: CustomTextStyles.f14W600(
                                 color: AppColors.primaryColor)))),
               ),
-              const SizedBox(width: 20),
               SizedBox(
-                  width: Get.width / 2.35,
+                  width: Get.width / 2.36,
                   height: 55,
                   child: CustomElevatedButton(
                       title: "Add To Cart",
@@ -290,6 +340,71 @@ class ProductDescriptionScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void showBuyBottomSheet() {
+    final TextEditingController addressController = TextEditingController();
+    final RxInt quantity = 1.obs;
+
+    Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("Enter Shipping Address",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            TextField(
+              controller: addressController,
+              decoration: InputDecoration(
+                labelText: "Shipping Address",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 15),
+            Text("Select Quantity",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Obx(() => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () {
+                        if (quantity.value > 1) quantity.value--;
+                      },
+                    ),
+                    Text(quantity.value.toString(),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        quantity.value++;
+                      },
+                    ),
+                  ],
+                )),
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(() => CheckOutScreen(
+                      shippingAddress: addressController.text,
+                      quantity: quantity.value.toString(),
+                      price: products.productPrice.toString(),
+                      productId: products.productId.toString(),
+                    ));
+              },
+              child: Text("Confirm Purchase"),
+            ),
+          ],
+        ),
+      ),
+      isScrollControlled: true,
     );
   }
 }

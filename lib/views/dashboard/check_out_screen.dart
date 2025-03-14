@@ -11,10 +11,21 @@ import 'package:petcure_user/widgets/custom/elevated_button.dart';
 class CheckOutScreen extends StatelessWidget {
   static String routeName = "/check-out-screen";
   final c = Get.put(CheckOutScreenController());
-  CheckOutScreen({super.key});
-
+  CheckOutScreen({
+    super.key,
+    required this.shippingAddress,
+    required this.quantity,
+    required this.price,
+    required this.productId,
+  });
+  final String shippingAddress;
+  final String quantity;
+  final String price;
+  final String productId;
   @override
   Widget build(BuildContext context) {
+    final double totalAmount =
+        (double.parse(price) * int.parse(quantity)) + 120;
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
       appBar: AppBar(
@@ -72,8 +83,7 @@ class CheckOutScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 3),
-                  Text("office, prithivi chowk area, Pokhara, Gandaki Province",
-                      style: CustomTextStyles.f12W400()),
+                  Text(shippingAddress, style: CustomTextStyles.f12W400()),
                   const SizedBox(height: 3),
                   Text("9824170016",
                       style: CustomTextStyles.f12W400(
@@ -107,7 +117,7 @@ class CheckOutScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Whiskas 1+ Lamb Dry Cat Food",
-                              style: CustomTextStyles.f14W600()),
+                              style: CustomTextStyles.f12W600()),
                           const SizedBox(height: 4),
                           Text("Brand: Whiskas",
                               style: CustomTextStyles.f12W400(
@@ -119,31 +129,35 @@ class CheckOutScreen extends StatelessWidget {
                               Text("Rs.4700",
                                   style: CustomTextStyles.f14W600(
                                       color: AppColors.primaryColor)),
-                              const SizedBox(width: 120),
+                              const SizedBox(width: 100),
                               Text("Qty:", style: CustomTextStyles.f14W600()),
                               const SizedBox(width: 8),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  InkWell(
-                                    onTap: c.decrement,
-                                    child: Text('-',
-                                        style: CustomTextStyles.f14W400(
-                                            color: AppColors.textColor)),
-                                  ),
+                                  // InkWell(
+                                  //   onTap: c.decrement,
+                                  //   child: Text('-',
+                                  //       style: CustomTextStyles.f14W400(
+                                  //           color: AppColors.textColor)),
+                                  // ),
                                   const SizedBox(width: 8),
-                                  Obx(() => Text(
-                                        '${c.count}',
-                                        style: CustomTextStyles.f12W400(),
-                                      )),
-                                  const SizedBox(width: 8),
-                                  InkWell(
-                                    onTap: c.increment,
-                                    child: Text('+',
-                                        style: CustomTextStyles.f14W400(
-                                            color: AppColors.textColor)),
+                                  // Obx(() => Text(
+                                  //       '${c.count}',
+                                  //       style: CustomTextStyles.f12W400(),
+                                  //     )),
+                                  Text(
+                                    quantity,
+                                    style: CustomTextStyles.f12W400(),
                                   )
+                                  // const SizedBox(width: 8),
+                                  // InkWell(
+                                  //   onTap: c.increment,
+                                  //   child: Text('+',
+                                  //       style: CustomTextStyles.f14W400(
+                                  //           color: AppColors.textColor)),
+                                  // )
                                 ],
                               )
                             ],
@@ -160,7 +174,7 @@ class CheckOutScreen extends StatelessWidget {
                     children: [
                       Text("1 items(s).Subtotal:",
                           style: CustomTextStyles.f12W400()),
-                      Text("Rs 4820",
+                      Text(price,
                           style: CustomTextStyles.f12W400(
                               color: AppColors.primaryColor)),
                     ],
@@ -191,7 +205,7 @@ class CheckOutScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Items Total", style: CustomTextStyles.f14W400()),
-                      Text("Rs.4700", style: CustomTextStyles.f14W400())
+                      Text("Rs.$price", style: CustomTextStyles.f14W400())
                     ],
                   ),
                   const SizedBox(height: 7),
@@ -207,7 +221,7 @@ class CheckOutScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Total Payment", style: CustomTextStyles.f14W400()),
-                      Text("Rs.4820", style: CustomTextStyles.f14W400())
+                      Text("Rs.$totalAmount", style: CustomTextStyles.f14W400())
                     ],
                   )
                 ],
@@ -238,7 +252,7 @@ class CheckOutScreen extends StatelessWidget {
                     Text("Total:",
                         style:
                             CustomTextStyles.f14W600(color: AppColors.lGrey)),
-                    Text("Rs.4820",
+                    Text("Rs.$totalAmount",
                         style: CustomTextStyles.f16W600(
                             color: AppColors.primaryColor)),
                   ],
@@ -253,7 +267,12 @@ class CheckOutScreen extends StatelessWidget {
                   child: CustomElevatedButton(
                       title: "Place Order",
                       onTap: () {
-                        Get.to(() => PaymentOptionScreen());
+                        Get.to(() => PaymentOptionScreen(
+                              shippingAddress: shippingAddress,
+                              quantity: quantity,
+                              price: price,
+                              productId: productId,
+                            ));
                       })),
             ],
           ),

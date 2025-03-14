@@ -9,6 +9,7 @@ import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
 import 'package:petcure_user/views/dashboard/doctor_description_screen.dart';
+import 'package:petcure_user/views/staff/staff_home_screen.dart';
 import 'package:petcure_user/widgets/custom/custom_textfield.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,111 +20,120 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.extraWhite,
-      body: SafeArea(
-          child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.only(left: 18, right: 18, top: 25),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Good Morning 👋",
-                                      style: CustomTextStyles.f18W600(),
-                                    ),
-                                    Obx(() {
-                                      if (coreController.userType.value ==
-                                          "staff") {
-                                        return Text(
-                                          "${coreController.currentUser.value?.name} (${coreController.currentUser.value?.userType})",
-                                          style: CustomTextStyles.f14W400(),
-                                        );
-                                      } else {
-                                        return Text(
-                                          "${coreController.currentUser.value?.name} (${coreController.currentUser.value?.userType})",
-                                          style: CustomTextStyles.f14W400(),
-                                        );
-                                      }
-                                    })
-                                  ]),
-                              Container(
-                                width: 50,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    image: const DecorationImage(
-                                        image:
-                                            AssetImage(ImagePath.blankProfile),
-                                        fit: BoxFit.cover)),
-                              )
-                            ]),
-                        const SizedBox(height: 20),
-                        CustomTextField(
-                          controller: c.searchController,
-                          hint: "Search..",
-                          textInputAction: TextInputAction.next,
-                          textInputType: TextInputType.text,
-                          preIconPath: Icons.search,
-                          preIconSize: 22,
+    return Obx(() {
+      if (coreController.userType.value == "staff") {
+        return StaffHomeScreen();
+      } else {
+        return Scaffold(
+          backgroundColor: AppColors.extraWhite,
+          body: SafeArea(
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(left: 18, right: 18, top: 25),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Good Morning 👋",
+                                          style: CustomTextStyles.f18W600(),
+                                        ),
+                                        Obx(() {
+                                          if (coreController.userType.value ==
+                                              "staff") {
+                                            return Text(
+                                              "${coreController.currentUser.value?.name} (${coreController.currentUser.value?.userType})",
+                                              style: CustomTextStyles.f14W400(),
+                                            );
+                                          } else {
+                                            return Text(
+                                              "${coreController.currentUser.value?.name} (${coreController.currentUser.value?.userType})",
+                                              style: CustomTextStyles.f14W400(),
+                                            );
+                                          }
+                                        })
+                                      ]),
+                                  Container(
+                                    width: 50,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        image: const DecorationImage(
+                                            image: AssetImage(
+                                                ImagePath.blankProfile),
+                                            fit: BoxFit.cover)),
+                                  )
+                                ]),
+                            const SizedBox(height: 20),
+                            CustomTextField(
+                              controller: c.searchController,
+                              hint: "Search..",
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text,
+                              preIconPath: Icons.search,
+                              preIconSize: 22,
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              "Categories",
+                              style: CustomTextStyles.f14W600(),
+                            ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 18, right: 18, top: 10, bottom: 10),
+                              child: Obx(() => (c.loading.value)
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : c.allCategories.isEmpty
+                                      ? Center(
+                                          child: Text(
+                                          "No categories",
+                                          style: CustomTextStyles.f14W400(
+                                              color: AppColors.textGreyColor),
+                                        ))
+                                      : ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: c.allCategories.length,
+                                          scrollDirection: Axis.vertical,
+                                          itemBuilder: (context, index) {
+                                            final Categories categories =
+                                                c.allCategories[index];
+                                            return CategoryWidget(
+                                                categories: categories);
+                                          },
+                                        )),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              "Doctors",
+                              style: CustomTextStyles.f14W600(),
+                            ),
+                            const SizedBox(height: 8),
+                          ],
                         ),
-                        const SizedBox(height: 20),
-                        Text(
-                          "Categories",
-                          style: CustomTextStyles.f14W600(),
-                        ),
-                        const SizedBox(height: 8),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 18, right: 18, top: 10, bottom: 10),
-                          child: Obx(() => (c.loading.value)
-                              ? const Center(child: CircularProgressIndicator())
-                              : c.allCategories.isEmpty
-                                  ? Center(
-                                      child: Text(
-                                      "No categories",
-                                      style: CustomTextStyles.f14W400(
-                                          color: AppColors.textGreyColor),
-                                    ))
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: c.allCategories.length,
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder: (context, index) {
-                                        final Categories categories =
-                                            c.allCategories[index];
-                                        return CategoryWidget(
-                                            categories: categories);
-                                      },
-                                    )),
-                        ),
-                        const SizedBox(height: 20),
-                        Text(
-                          "Doctors",
-                          style: CustomTextStyles.f14W600(),
-                        ),
-                        const SizedBox(height: 8),
-                      ],
-                    ),
-                  );
-                }
-                return const DoctorWidget();
-              })),
-    );
+                      );
+                    }
+                    return const DoctorWidget();
+                  })),
+        );
+      }
+    });
   }
 }
 

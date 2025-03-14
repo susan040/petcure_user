@@ -4,7 +4,6 @@ import 'package:petcure_user/controller/dashboard/cart_screen_controller.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
-import 'package:petcure_user/views/dashboard/check_out_screen.dart';
 import 'package:petcure_user/widgets/custom/elevated_button.dart';
 
 class MyCartScreen extends StatelessWidget {
@@ -17,22 +16,21 @@ class MyCartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
       appBar: AppBar(
-        elevation: 2,
-        centerTitle: false,
-        backgroundColor: AppColors.extraWhite,
-        title: Text("My Cart (2)",
-            style: CustomTextStyles.f16W600(color: AppColors.textColor)),
-        actions: [
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 18),
-              child: Text("Delete",
-                  style:
-                      CustomTextStyles.f16W400(color: AppColors.primaryColor)),
-            ),
-          )
-        ]
-      ),
+          elevation: 2,
+          centerTitle: false,
+          backgroundColor: AppColors.extraWhite,
+          title: Text("My Cart (2)",
+              style: CustomTextStyles.f16W600(color: AppColors.textColor)),
+          actions: [
+            InkWell(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 18),
+                child: Text("Delete",
+                    style: CustomTextStyles.f16W400(
+                        color: AppColors.primaryColor)),
+              ),
+            )
+          ]),
       body: Column(
         children: [
           const SizedBox(height: 20),
@@ -114,7 +112,7 @@ class MyCartScreen extends StatelessWidget {
                   child: CustomElevatedButton(
                       title: "Check Out",
                       onTap: () {
-                        Get.to(() => CheckOutScreen());
+                        // Get.to(() => CheckOutScreen());
                       })),
             ],
           ),

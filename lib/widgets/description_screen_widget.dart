@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/dashboard/product_desc_controller.dart';
+import 'package:petcure_user/models/products.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
@@ -82,10 +83,11 @@ class ReviewsWidget extends StatelessWidget {
   const ReviewsWidget({
     super.key,
     required this.controller,
+    required this.reviews,
   });
 
   final ProductDescController controller;
-
+  final Reviews reviews;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -102,7 +104,8 @@ class ReviewsWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Dibin s. | 2 years ago", style: CustomTextStyles.f14W600()),
+              Text("${reviews.user!.userName} | ${reviews.reviewDate}",
+                  style: CustomTextStyles.f14W600()),
               Row(
                 children: [
                   InkWell(onTap: () {
@@ -119,7 +122,7 @@ class ReviewsWidget extends StatelessWidget {
                   })),
                   const SizedBox(width: 4),
                   Text(
-                    "2",
+                    "",
                     style: CustomTextStyles.f14W400(
                         color: AppColors.secondaryTextColor),
                   )
@@ -131,7 +134,7 @@ class ReviewsWidget extends StatelessWidget {
           const StarWidget(),
           const SizedBox(height: 6),
           Text(
-            "Our cats loves this! They really thrive on Whiskas and there's not one piece they won't eat. I think this is a high-quality food, plus it looks and smells good too.",
+            "${reviews.reviewComment}",
             style: CustomTextStyles.f14W400(),
             textAlign: TextAlign.justify,
           ),
