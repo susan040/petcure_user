@@ -1,4 +1,4 @@
-// edit_profile_screen.dart
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,6 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
-
       appBar: AppBar(
         elevation: 2,
         centerTitle: false,
@@ -39,9 +38,14 @@ class EditProfileScreen extends StatelessWidget {
             onTap: () {
               Get.back();
             },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 18),
-              child: SvgPicture.asset(ImagePath.tick),
+            child: InkWell(
+              onTap: () {
+                c.submit();
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 18),
+                child: SvgPicture.asset(ImagePath.tick),
+              ),
             ),
           )
         ],
@@ -51,24 +55,32 @@ class EditProfileScreen extends StatelessWidget {
           key: c.formKey,
           child: Column(children: [
             const SizedBox(height: 40),
-            Obx(
-              () => ClipRRect(
-                borderRadius: BorderRadius.circular(60),
-                child: (c.image.value != null)
-                    ? Image.file(
-                        c.image.value!,
-                        fit: BoxFit.cover,
-                        height: 100,
-                        width: 100,
-                      )
-                    : Image.network(
-                        "https://edu.ceskatelevize.cz/storage/video/placeholder.jpg",
-                        fit: BoxFit.cover,
-                        height: 100,
-                        width: 100,
-                      ),
-              ),
-            ),
+            Obx(() => ClipRRect(
+                  borderRadius: BorderRadius.circular(60),
+                  child: (c.image.value != null)
+                      ? Image.file(
+                          c.image.value!,
+                          fit: BoxFit.cover,
+                          height: 100,
+                          width: 100,
+                        )
+                      : CachedNetworkImage(
+                          placeholder: (context, url) => const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator()),
+                          fit: BoxFit.cover,
+                          height: 100,
+                          width: 100,
+                          imageUrl: c.avatarUrl.value!,
+                          errorWidget: (context, url, error) => Image.network(
+                            "https://edu.ceskatelevize.cz/storage/video/placeholder.jpg",
+                            fit: BoxFit.cover,
+                            height: 100,
+                            width: 100,
+                          ),
+                        ),
+                )),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
@@ -141,7 +153,16 @@ class EditProfileScreen extends StatelessWidget {
                       print(phone.completeNumber);
                     },
                   ),
-                  const SizedBox(height: 22),
+                  const SizedBox(height: 30),
+                  CustomTextField(
+                      controller: c.genderController,
+                      validator: Validators.checkFieldEmpty,
+                      hint: "Enter your gender",
+                      preIconPath: Icons.people,
+                      preIconSize: 21,
+                      textInputAction: TextInputAction.next,
+                      textInputType: TextInputType.text),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),

@@ -51,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                             height: 100,
                             width: 100,
                             imageUrl:
-                                coreController.currentUser.value!.image ?? "",
+                                coreController.currentUser.value?.image ?? "",
                             errorWidget: (context, url, error) => Image.asset(
                               "assets/commons/blank_photo.jpg",
                               height: 100,
@@ -106,6 +106,9 @@ class ProfileScreen extends StatelessWidget {
                           child: CustomElevatedButton(
                               title: "Edit Profile",
                               onTap: () {
+                                debugPrint(
+                                    "Image URL: ${coreController.currentUser.value?.image}");
+
                                 Get.to(() => EditProfileScreen());
                               }))
                     ],
