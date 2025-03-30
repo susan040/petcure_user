@@ -74,7 +74,7 @@ class ShopScreen extends StatelessWidget {
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 14,
                                 mainAxisSpacing: 14,
-                                childAspectRatio: 0.72,
+                                childAspectRatio: 0.68,
                               ),
                               itemCount: c.allProducts.length,
                               itemBuilder: (context, index) {
@@ -169,7 +169,7 @@ class ProductWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12, bottom: 6),
+              padding: const EdgeInsets.only(left: 12, right: 12, bottom: 2),
               child: Text(
                 "${products.categoryName}",
                 style: CustomTextStyles.f12W400(),

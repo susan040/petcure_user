@@ -19,14 +19,14 @@ class MyCartScreen extends StatelessWidget {
           elevation: 2,
           centerTitle: false,
           backgroundColor: AppColors.extraWhite,
-          title: Text("My Cart (2)",
-              style: CustomTextStyles.f16W600(color: AppColors.textColor)),
+          title: Text("My Cart",
+              style: CustomTextStyles.f14W600(color: AppColors.textColor)),
           actions: [
             InkWell(
               child: Padding(
-                padding: const EdgeInsets.only(right: 18),
+                padding: const EdgeInsets.only(right: 18, top: 18),
                 child: Text("Delete",
-                    style: CustomTextStyles.f16W400(
+                    style: CustomTextStyles.f14W400(
                         color: AppColors.primaryColor)),
               ),
             )
@@ -51,45 +51,49 @@ class MyCartScreen extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 18, right: 18, top: 12, bottom: 10),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
-                onTap: c.toggleSelectionAll,
-                child: Obx(() => Container(
-                    height: 25,
-                    width: 25,
-                    decoration: BoxDecoration(
-                      color: AppColors.extraWhite,
-                      border: Border.all(
-                          width: 1,
-                          color: c.isSelectedAll.value
-                              ? AppColors.primaryColor
-                              : AppColors.lGrey),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: Center(
-                      child: Container(
-                        height: 15,
-                        width: 15,
+              Row(
+                children: [
+                  InkWell(
+                    onTap: c.toggleSelectionAll,
+                    child: Obx(() => Container(
+                        height: 18,
+                        width: 18,
                         decoration: BoxDecoration(
-                          color: c.isSelectedAll.value
-                              ? AppColors.primaryColor
-                              : AppColors.extraWhite,
+                          color: AppColors.extraWhite,
+                          border: Border.all(
+                              width: 1,
+                              color: c.isSelectedAll.value
+                                  ? AppColors.primaryColor
+                                  : AppColors.lGrey),
                           borderRadius: BorderRadius.circular(100),
                         ),
-                      ),
-                    ))),
+                        child: Center(
+                          child: Container(
+                            height: 12,
+                            width: 12,
+                            decoration: BoxDecoration(
+                              color: c.isSelectedAll.value
+                                   ? AppColors.primaryColor
+                                  : AppColors.extraWhite,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ),
+                        ))),
+                  ),
+                  const SizedBox(width: 10),
+                  Text("All", style: CustomTextStyles.f12W400()),
+                ],
               ),
-              const SizedBox(width: 10),
-              Text("All", style: CustomTextStyles.f14W400()),
-              const SizedBox(width: 80),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(
                   children: [
-                    Text("Delivery:",
+                    Text("Delivery: ",
                         style:
-                            CustomTextStyles.f14W400(color: AppColors.lGrey)),
+                            CustomTextStyles.f12W400(color: AppColors.lGrey)),
                     Text("Rs.0",
-                        style: CustomTextStyles.f14W400(
+                        style: CustomTextStyles.f12W400(
                             color: AppColors.primaryColor)),
                   ],
                 ),
@@ -98,16 +102,16 @@ class MyCartScreen extends StatelessWidget {
                   children: [
                     Text("Total:",
                         style:
-                            CustomTextStyles.f14W600(color: AppColors.lGrey)),
+                            CustomTextStyles.f12W600(color: AppColors.lGrey)),
                     Text("Rs.0",
-                        style: CustomTextStyles.f16W600(
+                        style: CustomTextStyles.f12W600(
                             color: AppColors.primaryColor)),
                   ],
                 )
               ]),
-              const SizedBox(width: 13),
+              const SizedBox(width: 8),
               SizedBox(
-                  height: 55,
+                  height: 48,
                   width: Get.width / 3.2,
                   child: CustomElevatedButton(
                       title: "Check Out",
@@ -133,15 +137,15 @@ class MyCartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 18, right: 18, top: 10),
+      padding: const EdgeInsets.only(left: 18, right: 18),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           InkWell(
             onTap: c.toggleSelection,
             child: Obx(() => Container(
-                height: 25,
-                width: 25,
+                height: 18,
+                width: 18,
                 decoration: BoxDecoration(
                   color: AppColors.extraWhite,
                   border: Border.all(
@@ -153,8 +157,8 @@ class MyCartWidget extends StatelessWidget {
                 ),
                 child: Center(
                   child: Container(
-                    height: 15,
-                    width: 15,
+                    height: 12,
+                    width: 12,
                     decoration: BoxDecoration(
                       color: c.isSelected.value
                           ? AppColors.primaryColor
@@ -164,47 +168,48 @@ class MyCartWidget extends StatelessWidget {
                   ),
                 ))),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 2),
           Image.asset(ImagePath.product, height: 70, width: 72),
-          const SizedBox(width: 12),
+          const SizedBox(width: 4),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 width: 217,
+                height: 20,
                 child: Text(
                   "Whiskas 1+ Lamb Dry Cat Food",
-                  style: CustomTextStyles.f16W400(),
+                  style: CustomTextStyles.f12W600(),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               Text(
                 "Brand: Whiskas",
-                style: CustomTextStyles.f12W400(
+                style: CustomTextStyles.f11W400(
                     color: AppColors.secondaryTextColor),
               ),
               Row(
                 children: [
                   Text("Rs.4700",
-                      style: CustomTextStyles.f14W600(
+                      style: CustomTextStyles.f12W600(
                           color: AppColors.primaryColor)),
                   const SizedBox(width: 110),
                   InkWell(
                     onTap: c.decrement,
                     child: Text('-',
-                        style: CustomTextStyles.f16W600(
+                        style: CustomTextStyles.f12W600(
                             color: AppColors.textColor)),
                   ),
                   const SizedBox(width: 16),
                   Obx(() => Text(
-                        '${c.count}',
-                        style: CustomTextStyles.f14W400(),
+                        '${c.quantity}',
+                        style: CustomTextStyles.f12W400(),
                       )),
                   const SizedBox(width: 16),
                   InkWell(
                     onTap: c.increment,
                     child: Text('+',
-                        style: CustomTextStyles.f16W600(
+                        style: CustomTextStyles.f12W600(
                             color: AppColors.textColor)),
                   )
                 ],

@@ -1,23 +1,24 @@
 import 'package:get/get.dart';
 
-class MyCartScreenController extends GetxController{
-  var count = 0.obs;
+class MyCartScreenController extends GetxController {
+  final RxInt quantity = 1.obs;
 
   void increment() {
-    count++;
+    quantity.value++;
   }
 
   void decrement() {
-    if (count > 0) {
-      count--;
+    if (quantity.value > 0) {
+      quantity.value--;
     }
   }
-  
+
   var isSelected = false.obs;
 
   void toggleSelection() {
     isSelected.value = !isSelected.value;
   }
+
   var isSelectedAll = false.obs;
 
   void toggleSelectionAll() {
