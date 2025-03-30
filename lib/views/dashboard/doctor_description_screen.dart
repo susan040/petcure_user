@@ -15,7 +15,6 @@ class DescriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.extraWhite,
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -184,11 +183,11 @@ class DescriptionScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: AppColors.extraWhite,
                             borderRadius: BorderRadius.circular(20),
-                            boxShadow: const [
+                            boxShadow: [
                               BoxShadow(
                                   blurRadius: 3,
-                                  color: AppColors.secondaryColor,
-                                  offset: Offset(0, 4)),
+                                  color: AppColors.lightGrey,
+                                  offset: const Offset(0, 4)),
                             ]),
                         child: Padding(
                           padding: const EdgeInsets.only(

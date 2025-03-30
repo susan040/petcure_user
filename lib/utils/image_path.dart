@@ -2,7 +2,7 @@ class ImagePath {
   static const String baseCommonImagePath = "assets/commons";
   static const String baseIconPath = "assets/icons";
 
-  static const String logo = "$baseCommonImagePath/logo.gif";
+  static const String logo = "$baseCommonImagePath/logo.svg";
   static const String home = "$baseCommonImagePath/home.svg";
   static const String person = "$baseCommonImagePath/person.svg";
   static const String shop = "$baseCommonImagePath/shop.svg";

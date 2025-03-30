@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/splash_screen_controller.dart';
 import 'package:petcure_user/utils/colors.dart';
@@ -19,21 +19,14 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: Get.width / 1.3,
-                child: Image.asset(ImagePath.logo),
-              ),
+              SvgPicture.asset(ImagePath.logo),
+              const SizedBox(height: 60),
               const CircularProgressIndicator(
-                color: Color(0xFFF6E5FF),
+                color: Color.fromARGB(255, 245, 78, 75),
                 backgroundColor: AppColors.primaryColor,
               ),
-              const SizedBox(height: 40),
-              const CupertinoActivityIndicator(
-                radius: 30,
-                color: AppColors.primaryColor,
-              ),
               const SizedBox(
-                height: 100,
+                height: 40,
               ),
             ],
           ),

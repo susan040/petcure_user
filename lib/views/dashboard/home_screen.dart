@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petcure_user/controller/core_controller.dart';
 import 'package:petcure_user/controller/dashboard/home_screen_controller.dart';
-import 'package:petcure_user/models/category.dart';
 import 'package:petcure_user/utils/colors.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
@@ -92,33 +91,46 @@ class HomeScreen extends StatelessWidget {
                               style: CustomTextStyles.f14W600(),
                             ),
                             const SizedBox(height: 8),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 18, right: 18, top: 10, bottom: 10),
-                              child: Obx(() => (c.loading.value)
-                                  ? const Center(
-                                      child: CircularProgressIndicator())
-                                  : c.allCategories.isEmpty
-                                      ? Center(
-                                          child: Text(
-                                          "No categories",
-                                          style: CustomTextStyles.f14W400(
-                                              color: AppColors.textGreyColor),
-                                        ))
-                                      : ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: c.allCategories.length,
-                                          scrollDirection: Axis.vertical,
-                                          itemBuilder: (context, index) {
-                                            final Categories categories =
-                                                c.allCategories[index];
-                                            return CategoryWidget(
-                                                categories: categories);
-                                          },
-                                        )),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CategoryWidget(
+                                    image: ImagePath.cat, name: "Cat"),
+                                CategoryWidget(
+                                    image: ImagePath.dog, name: "Dog"),
+                                CategoryWidget(
+                                    image: ImagePath.bird, name: "Bird"),
+                                CategoryWidget(
+                                    image: ImagePath.rabbit, name: "Rabbit"),
+                              ],
                             ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       left: 18, right: 18, top: 10, bottom: 10),
+                            //   child: Obx(() => (c.loading.value)
+                            //       ? const Center(
+                            //           child: CircularProgressIndicator())
+                            //       : c.allCategories.isEmpty
+                            //           ? Center(
+                            //               child: Text(
+                            //               "No categories",
+                            //               style: CustomTextStyles.f14W400(
+                            //                   color: AppColors.textGreyColor),
+                            //             ))
+                            //           : ListView.builder(
+                            //               shrinkWrap: true,
+                            //               physics:
+                            //                   const NeverScrollableScrollPhysics(),
+                            //               itemCount: c.allCategories.length,
+                            //               scrollDirection: Axis.vertical,
+                            //               itemBuilder: (context, index) {
+                            //                 final Categories categories =
+                            //                     c.allCategories[index];
+                            //                 return CategoryWidget(
+                            //                     categories: categories);
+                            //               },
+                            //             )),
+                            // ),
                             const SizedBox(height: 20),
                             Text(
                               "Doctors",
@@ -153,11 +165,17 @@ class DoctorWidget extends StatelessWidget {
         height: 119,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: AppColors.extraWhite,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(blurRadius: 2, color: AppColors.secondaryColor)
-            ]),
+          color: AppColors.extraWhite,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              spreadRadius: 3,
+              blurRadius: 4,
+              color: AppColors.lightGrey,
+              offset: const Offset(2, 2),
+            ),
+          ],
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -231,39 +249,47 @@ class DoctorWidget extends StatelessWidget {
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({
     super.key,
-    required this.categories,
+    required this.image,
+    required this.name,
   });
-  final Categories categories;
+  final String image;
+  final String name;
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(right: 10),
       height: 80,
       width: 72,
       decoration: BoxDecoration(
-        color: AppColors.secondaryColor,
+        color: AppColors.unselectedGrey.withOpacity(0.2),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Column(
         children: [
           const SizedBox(height: 4),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: CachedNetworkImage(
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-              fit: BoxFit.cover,
-              height: 50,
-              width: 50,
-              imageUrl: categories.image ?? "",
-              errorWidget: (context, url, error) => Image.asset(
-                "assets/images/blank_profile.jpg",
-                height: 50,
-                width: 50,
-                fit: BoxFit.cover,
-              ),
-            ),
+          Image.asset(
+            image,
+            height: 50,
+            width: 50,
           ),
-          Text(categories.name ?? "", style: CustomTextStyles.f12W400())
+          // ClipRRect(
+          //   borderRadius: BorderRadius.circular(15),
+          //   child: CachedNetworkImage(
+          //     placeholder: (context, url) =>
+          //         const Center(child: CircularProgressIndicator()),
+          //     fit: BoxFit.cover,
+          //     height: 50,
+          //     width: 50,
+          //     imageUrl: image,
+          //     errorWidget: (context, url, error) => Image.asset(
+          //       "assets/images/blank_profile.jpg",
+          //       height: 50,
+          //       width: 50,
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
+          Text(name, style: CustomTextStyles.f12W400())
         ],
       ),
     );

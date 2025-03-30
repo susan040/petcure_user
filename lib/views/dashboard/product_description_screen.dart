@@ -135,7 +135,7 @@ class ProductDescriptionScreen extends StatelessWidget {
                             padding: EdgeInsets.only(
                                 left: 12, right: 12, top: 4, bottom: 4),
                             decoration: BoxDecoration(
-                                color: AppColors.secondaryColor,
+                                color: AppColors.lightGrey,
                                 borderRadius: BorderRadius.circular(20)),
                             child: Center(
                               child: Row(
@@ -214,7 +214,7 @@ class ProductDescriptionScreen extends StatelessWidget {
                             height: 42,
                             width: 42,
                             decoration: BoxDecoration(
-                              color: AppColors.secondaryColor,
+                              color: AppColors.lightGrey,
                               borderRadius: BorderRadius.circular(50),
                               image: const DecorationImage(
                                   image: AssetImage(ImagePath.store),

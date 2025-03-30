@@ -215,7 +215,7 @@ class CategoryWidget extends StatelessWidget {
               width: 1,
               color: c.selectedCategory.value == categories.name
                   ? AppColors.primaryColor
-                  : AppColors.secondaryColor,
+                  : AppColors.lightGrey,
             ),
           ),
           child: Row(
