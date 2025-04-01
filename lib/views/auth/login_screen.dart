@@ -40,24 +40,16 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 35),
-
                   CustomTextField(
-                      controller: c.emailController,
                       validator: Validators.checkEmailField,
-                      textCapitalization: TextCapitalization.none,
-                      hint: "Enter your email",
+                      controller: c.emailController,
+                      preIconPath: Icons.email,
+                      preIconSize: 18,
+                      hint: "Enter your Email",
                       textInputAction: TextInputAction.next,
+                      textCapitalization: TextCapitalization.none,
                       textInputType: TextInputType.emailAddress),
-
-                  // CustomTextField(
-                  //     validator: Validators.checkEmailField,
-                  //     controller: c.emailController,
-                  //     preIconPath: Icons.email,
-                  //     preIconSize: 18,
-                  //     hint: "Enter your Email",
-                  //     textInputAction: TextInputAction.next,
-                  //     textInputType: TextInputType.emailAddress),1
-                  // const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Obx(() => CustomPasswordField(
                       validator: Validators.checkPasswordField,
                       hint: "Enter your password",
@@ -67,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                       onEyeClick: c.onEyeCLick,
                       controller: c.passwordController,
                       textInputAction: TextInputAction.done)),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   Text(
                     "Forget Password?",
                     style: CustomTextStyles.f14W400(color: AppColors.textColor),
