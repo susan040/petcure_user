@@ -8,4 +8,5 @@ class Api {
   static const String getOrderUrl = "$baseUrl/get_order.php";
   static const String editUserUrl = "$baseUrl/edit_user.php";
   static const String addToCartUrl = "$baseUrl/cart/add_cart.php";
+  static const String getCartItemUrl = "$baseUrl/cart/get_cart_items.php";
 }

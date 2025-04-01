@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:petcure_user/controller/dashboard/cart_screen_controller.dart';
 import 'package:petcure_user/controller/dashboard/product_desc_controller.dart';
 import 'package:petcure_user/controller/dashboard/shop_screen_controller.dart';
 import 'package:petcure_user/models/products.dart';
 import 'package:petcure_user/utils/colors.dart';
-import 'package:petcure_user/utils/custom_snackbar.dart';
 import 'package:petcure_user/utils/custom_text_style.dart';
 import 'package:petcure_user/utils/image_path.dart';
 import 'package:petcure_user/views/dashboard/check_out_screen.dart';
@@ -15,7 +15,8 @@ import 'package:petcure_user/widgets/description_screen_widget.dart';
 
 class ProductDescriptionScreen extends StatelessWidget {
   static String routeName = "/product-description-screen";
-  final ProductDescController controller = Get.put(ProductDescController());
+  final controller = Get.put(ProductDescController());
+  final cartController = Get.put(MyCartScreenController());
   final c = Get.put(ShopScreenController());
   ProductDescriptionScreen({super.key, required this.products});
   final Products products;
@@ -132,7 +133,7 @@ class ProductDescriptionScreen extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 left: 12, right: 12, top: 4, bottom: 4),
                             decoration: BoxDecoration(
                                 color: AppColors.lightGrey,
@@ -332,9 +333,10 @@ class ProductDescriptionScreen extends StatelessWidget {
                   child: CustomElevatedButton(
                       title: "Add To Cart",
                       onTap: () {
-                        CustomSnackBar.success(
-                            title: "Produce Added",
-                            message: "Add to cart successful");
+                        cartController.addToCart(
+                            products.productId.toString(),
+                            products.productQuantity.toString(),
+                            products.skus![0].productSkuId.toString());
                       }))
             ],
           ),
@@ -350,24 +352,24 @@ class ProductDescriptionScreen extends StatelessWidget {
     Get.bottomSheet(
       Container(
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Enter Shipping Address",
+            const Text("Enter Shipping Address",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             TextField(
               controller: addressController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Shipping Address",
                 border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 15),
-            Text("Select Quantity",
+            const Text("Select Quantity",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             Obx(() => Row(
                   mainAxisAlignment: MainAxisAlignment.center,

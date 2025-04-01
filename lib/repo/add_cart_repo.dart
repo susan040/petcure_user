@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:petcure_user/controller/core_controller.dart';
 import 'package:petcure_user/utils/api.dart';
 
-class AddOrderRepo {
-  static Future<void> addOrderRepo(
+class AddCartRepo {
+  static Future<void> addCartRepo(
       {required String productId,
       required String productSkuId,
       required String quantity,
@@ -22,7 +22,9 @@ class AddOrderRepo {
       var body = {
         'token': token,
         'product_id': productId,
-        'quantity': quantity
+        'product_sku_id': productSkuId,
+        'quantity': quantity,
+        'isSelected': "false"
       };
 
       http.Response response = await http.post(Uri.parse(Api.addToCartUrl),

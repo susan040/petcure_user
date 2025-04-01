@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -158,7 +157,7 @@ class DoctorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(() => DescriptionScreen());
+        Get.to(() => const DescriptionScreen());
       },
       child: Container(
         margin: const EdgeInsets.only(left: 18, right: 18, bottom: 14),
@@ -257,7 +256,6 @@ class CategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 10),
       height: 80,
       width: 72,
       decoration: BoxDecoration(
